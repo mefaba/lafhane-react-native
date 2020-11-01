@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import { GameContext } from "../../context/GameContext";
 
 const GameIntro = (props) => {
   const { setIsStarted } = props;
-  const [username, setUsername] = useState("");
-  //const { username, setUsername } = useContext(GameContext);
+  const { username, setUsername } = useContext(GameContext);
   //const [message, setMessage] = useState("");
   //const [isLoading, setIsLoading] = useState(false);
 
   const sendUsernameToAPI = () => {
     axios
-      .post(`${process.env.REACT_APP_ACTIVESERVER}/api/users`, {
+      .post(`https://lafhane-server.herokuapp.com/api/users`, {
         username: username,
       })
       .then(({ data }) => {
@@ -26,19 +26,19 @@ const GameIntro = (props) => {
           setIsStarted(true);
         }
         /* setIsStarted(true) */
-      });
+      })
+      .catch((err) => console.log("sendUsernameToAPI", err));
   };
 
   const handleStart = () => {
-    setIsStarted(true);
-    /* if (username.length > 3 && username.length < 11) {
+    if (username.length > 3 && username.length < 11) {
       //check if username exists in database.
       sendUsernameToAPI();
-      setIsLoading(true);
-      setMessage(
+      //setIsLoading(true);
+      /* setMessage(
         "Hoşgeldiniz yada Tekrar Deneyin. Bu isimde bir kullanıcı zaten oyunda olabilir. Farklı bir isim deneyin."
-      );
-    } */
+      ); */
+    }
   };
   console.log("username:", username);
   return (

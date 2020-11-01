@@ -4,9 +4,13 @@ import { StyleSheet, Text, View } from "react-native";
 import GameIntro from "./components/GameIntro/GameIntro";
 import GameMain from "./components/GameMain/GameMain";
 import GameProvider from "./context/GameContext";
+import { useFonts } from "expo-font";
 
 export default function App() {
   const [isStarted, setIsStarted] = useState(false);
+  let [fontsLoaded] = useFonts({
+    "Orbitron-Regular": require("./assets/fonts/Orbitron-Regular.ttf"),
+  });
 
   return (
     <GameProvider>
