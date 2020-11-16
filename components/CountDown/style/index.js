@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   countdownContainer: {
     alignItems: "center",
+    flex: 1,
   },
   countdownText: {
     fontFamily: "Orbitron-Regular",

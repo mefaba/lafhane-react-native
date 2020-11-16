@@ -40,24 +40,31 @@ const GameIntro = (props) => {
       ); */
     }
   };
-  console.log("username:", username);
+
   return (
     <View style={styles.container}>
-      <Text>Lafhane</Text>
-      <Text>Min length: 4, Max Length: 10</Text>
-      <Text>Username:</Text>
+      <Text style={styles.title}>Lafhane</Text>
+      <View>
+        <Button onPress={handleStart} title="How to Play" color="#841584" />
+      </View>
+      <Text style={styles.title}>Min length: 4, Max Length: 10</Text>
+      <Text style={styles.title}>Username:</Text>
       <TextInput
         style={{
-          width: "80%",
+          width: "100%",
           padding: 10,
           height: 40,
-          borderColor: "gray",
+          borderColor: "grey",
           borderWidth: 1,
+          textAlign: "center",
+          marginVertical: 8,
         }}
         onChangeText={(text) => setUsername(text)}
         value={username}
       />
-      <Button onPress={handleStart} title="Start Game" color="#841584" />
+      <View style={styles.startButton}>
+        <Button onPress={handleStart} title="Start Game" color="#841584" />
+      </View>
     </View>
   );
 };
@@ -66,8 +73,15 @@ export default GameIntro;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: "#5590BD",
+    width: "100%",
+    height: "100%",
+    padding: 10,
     justifyContent: "center",
-    alignItems: "center",
   },
+  title: {
+    textAlign: "center",
+    marginVertical: 8,
+  },
+  startButton: {},
 });

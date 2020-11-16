@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     height: "100%",
     backgroundColor: "#043D69",
+    justifyContent: "space-between",
   },
   titleContainer: {
     alignItems: "center",
@@ -11,6 +12,11 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: "white",
+  },
+  informationContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   tableContainer: {
     height: "70%",

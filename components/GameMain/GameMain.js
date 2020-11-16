@@ -7,6 +7,8 @@ import { getChunks } from "../../utils/functions";
 import io from "socket.io-client";
 import styles from "./style";
 import CountDown from "./../CountDown/CountDown";
+import AnswerBadge from "../Badges/AnswerBadge";
+import PointBadge from "../Badges/PointBadge";
 
 const GameMain = () => {
   const mock_data_tableChars = "irpnnsiletbfooie";
@@ -67,9 +69,15 @@ const GameMain = () => {
   const [currentAnswer, setCurrentAnswer] = useState("");
   const [data_tableChars, setDatatableChars] = useState(mock_data_tableChars);
   const [data_validAnswers, setValidAnswers] = useState(mock_data_validAnswers);
-  const { currentStage, username, display, setDisplay } = useContext(
-    GameContext
-  );
+  const {
+    currentStage,
+    username,
+    display,
+    setDisplay,
+    badgeView,
+    triggerBadge,
+  } = useContext(GameContext);
+
   const [rowOne, rowTwo, rowThree, rowFour] = getChunks(
     data_tableChars.split(""),
     4
@@ -120,6 +128,10 @@ const GameMain = () => {
     ) {
       setCorrectAnswers([...correctAnswers, currentAnswer]);
       setPoint(point + currentAnswer.length * 2 - 3); //Points calculates as follows => length,point = 3,3 / 4,5 / 5,7 / 6,9 / 7,11 / 8,13 / 9,15 / 10,17
+
+      triggerBadge("SHOW_TRUE_ANSWER", currentAnswer);
+    } else {
+      //trigger false answer
     }
     setCurrentAnswer("");
   };
@@ -128,8 +140,13 @@ const GameMain = () => {
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>Lafhane</Text>
       </View>
-      <CountDown />
-      {/* TABLE START */}
+      <View style={styles.informationContainer}>
+        <PointBadge totalPoint={point} />
+        <CountDown />
+        <AnswerBadge />
+      </View>
+
+      {/* GAMETABLE START */}
       <View style={styles.tableContainer}>
         <View style={styles.tableRow}>
           {rowOne.map((char, index) => (
@@ -176,11 +193,7 @@ const GameMain = () => {
           ))}
         </View>
       </View>
-      {/* TABLE END */}
-      <View style={styles.information}>
-        <Text>Stats</Text>
-        <Text>Point</Text>
-      </View>
+      {/* GAMETABLE END */}
 
       <View style={styles.answerContainer}>
         <TextInput editable={false} style={styles.answer}>
@@ -188,7 +201,9 @@ const GameMain = () => {
         </TextInput>
       </View>
 
-      <Button title="submit" onPress={handleAnswer} />
+      <View>
+        <Button title="submit" onPress={handleAnswer} />
+      </View>
     </View>
   );
 };
